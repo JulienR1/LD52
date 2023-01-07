@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public abstract class Animal : MonoBehaviour
+public abstract class Animal : ICollidable
 {
     protected string type;
     protected float speed;
@@ -36,9 +36,9 @@ public abstract class Animal : MonoBehaviour
     }
     protected virtual void Roam()
     {
-        if(Time.time - lastDirChangeTime > directionChangeTime)
+        if (Time.time - lastDirChangeTime > directionChangeTime)
         {
-            lastDirChangeTime= Time.time;
+            lastDirChangeTime = Time.time;
             CalculateNewMovVector();
         }
         Move();
@@ -55,5 +55,10 @@ public abstract class Animal : MonoBehaviour
     protected virtual void Update()
     {
         Roam();
+    }
+
+    public override void OnCollision(Vector2 collisionDifference)
+    {
+        this.transform.Translate(-collisionDifference);
     }
 }
