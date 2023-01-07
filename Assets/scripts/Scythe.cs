@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Follower))]
 public class Scythe : MonoBehaviour
 {
+
     [SerializeField] private float radius = 1;
     [SerializeField]
     [Range(0, 360)]
@@ -11,7 +13,19 @@ public class Scythe : MonoBehaviour
 
     [SerializeField] private Vector3 forwardDirection;
 
+    [SerializeField] private float attackDuration = 1.5f;
+    [SerializeField] private float attackCooldown = 1.5f;
+
+    private Follower follower;
+    private bool isAttacking = false;
+
+    private void Awake()
+    {
+        this.follower = GetComponent<Follower>();
+    }
+
     private void FixedUpdate()
+
     {
         LookAtMouse();
     }
@@ -41,7 +55,18 @@ public class Scythe : MonoBehaviour
 
     public void Attack()
     {
+        if (!isAttacking)
+            StartCoroutine(AttackCoroutine());
+    }
 
+    private IEnumerator AttackCoroutine()
+    {
+        isAttacking = true;
+        follower.Toggle(false);
+        yield return new WaitForSeconds(attackDuration);
+        follower.Toggle(true);
+        yield return new WaitForSeconds(attackCooldown);
+        isAttacking = false;
     }
 
     private void OnDrawGizmos()
