@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Reaper : MonoBehaviour
 {
-    public PlayerController controller;
+    [SerializeField] private PlayerController controller;
+    [SerializeField] private Scythe scythe;
     [SerializeField] private List<Card> cards;
-
 
     void Start()
     {
@@ -15,6 +15,9 @@ public class Reaper : MonoBehaviour
 
     void Update()
     {
-
+        if (InputManager.GetActionDown(KeyAction.Attack))
+        {
+            scythe.Attack();
+        }
     }
 }

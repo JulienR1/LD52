@@ -65,6 +65,12 @@ public class InputManager : MonoBehaviour
         return keys.Any(key => Input.GetKey(key));
     }
 
+    public static bool GetActionDown(KeyAction action)
+    {
+        var keys = InputManager.instance.computedKeyMaps[action];
+        return keys.Any(key => Input.GetKeyDown(key));
+    }
+
     public static Vector2 GetAxis(Axis axis)
     {
         var maps = InputManager.instance.computedAxisMaps[axis];
