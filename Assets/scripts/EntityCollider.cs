@@ -1,9 +1,9 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
-public class PlayerCollider : MonoBehaviour
+public class EntityCollider : MonoBehaviour
 {
-    public PlayerController controller;
+    [SerializeField] private ICollidable collidable;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -19,6 +19,6 @@ public class PlayerCollider : MonoBehaviour
     {
         var distance = other.Distance(GetComponent<Collider2D>());
         var difference = distance.pointB - distance.pointA;
-        controller.OnCollision(difference);
+        collidable.OnCollision(difference);
     }
 }

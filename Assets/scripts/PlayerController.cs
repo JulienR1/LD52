@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : ICollidable
 {
     public float moveSpeed = 10;
     public float acceleration = 1;
@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
         this.transform.Translate(velocity.x, velocity.y, 0);
     }
 
-    public void OnCollision(Vector2 collisionDifference)
+    public override void OnCollision(Vector2 collisionDifference)
     {
         this.transform.Translate(-collisionDifference);
     }

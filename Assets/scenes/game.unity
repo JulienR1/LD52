@@ -435,7 +435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f441d9cd3939c9045a1e225c6eda0d8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 1506220041}
+  collidable: {fileID: 1506220041}
 --- !u!50 &481896270
 Rigidbody2D:
   serializedVersion: 4
