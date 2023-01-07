@@ -4,18 +4,23 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float initialMoveSpeed = 10;
-    private float moveSpeed;
+    public float moveSpeed = 10;
+    private float speedFactor = 1;
 
-    private void Start()
+    public void ChangeSpeedFactor()
     {
-        moveSpeed = initialMoveSpeed;
+        // TODO
     }
 
-    void Update()
+    private void FixedUpdate()
     {
-        var pos = InputManager.GetAxis(Axis.Vertical) + InputManager.GetAxis(Axis.Horizontal);
-        var velocity = pos * moveSpeed * Time.deltaTime;
-        this.transform.position += new Vector3(velocity.x, velocity.y, 0);
+        var input = InputManager.GetAxis(Axis.Horizontal) + InputManager.GetAxis(Axis.Vertical);
+        var velocity = input * speedFactor * moveSpeed * Time.deltaTime;
+        this.transform.Translate(velocity.x, velocity.y, 0);
+    }
+
+    public void OnCollision(Vector2 collisionDifference)
+    {
+        this.transform.Translate(-collisionDifference);
     }
 }
