@@ -5,7 +5,10 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 10;
+    public float acceleration = 1;
     private float speedFactor = 1;
+
+    private Vector3 velocity = Vector3.zero;
 
     public void ChangeSpeedFactor()
     {
@@ -15,7 +18,9 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         var input = InputManager.GetAxis(Axis.Horizontal) + InputManager.GetAxis(Axis.Vertical);
-        var velocity = input * speedFactor * moveSpeed * Time.deltaTime;
+        var targetVelocity = input * speedFactor * moveSpeed * Time.deltaTime;
+
+        velocity = Vector3.Lerp(velocity, targetVelocity, acceleration * Time.deltaTime);
         this.transform.Translate(velocity.x, velocity.y, 0);
     }
 
