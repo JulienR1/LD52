@@ -44,21 +44,23 @@ public abstract class Animal : ICollidable
         Move();
     }
 
-    public void OnTriggerEnter2D(Collision2D collision)
-    {
-        print("collison");
-        lastDirChangeTime = Time.time;
-        CalculateNewMovVector();
-        Move();
-    }
+    // public void OnTriggerEnter2D(Collision2D collision)
+    // {
+    //     print("collison");
+    //     lastDirChangeTime = Time.time;
+    //     CalculateNewMovVector();
+    //     Move();
+    // }
 
     protected virtual void Update()
     {
         Roam();
     }
 
-    public override void OnCollision(Vector2 collisionDifference)
+    public override void OnCollision(Vector2 collisionDifference, GameObject other)
     {
         this.transform.Translate(-collisionDifference);
     }
+
+    public override void OnCollisionEnd(GameObject other) { }
 }

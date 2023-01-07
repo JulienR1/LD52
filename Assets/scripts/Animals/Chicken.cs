@@ -9,7 +9,7 @@ public class Chicken : Animal
     Chicken()
     {
         type = "chicken";
-        speed = 2;
+        speed = 0;
         directionChangeTime = 3f;
     }
 }
