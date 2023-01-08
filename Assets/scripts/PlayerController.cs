@@ -24,8 +24,10 @@ public class PlayerController : ICollidable
         this.transform.Translate(velocity.x, velocity.y, 0);
     }
 
-    public override void OnCollision(Vector2 collisionDifference)
+    public override void OnCollision(Vector2 collisionDifference, GameObject other)
     {
         this.transform.Translate(-collisionDifference);
     }
+
+    public override void OnCollisionEnd(GameObject other) { }
 }

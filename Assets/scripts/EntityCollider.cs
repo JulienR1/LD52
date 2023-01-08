@@ -15,10 +15,15 @@ public class EntityCollider : MonoBehaviour
         OnCollision(other);
     }
 
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        collidable.OnCollisionEnd(other.gameObject);
+    }
+
     private void OnCollision(Collider2D other)
     {
         var distance = other.Distance(GetComponent<Collider2D>());
         var difference = distance.pointB - distance.pointA;
-        collidable.OnCollision(difference);
+        collidable.OnCollision(difference, other.gameObject);
     }
 }

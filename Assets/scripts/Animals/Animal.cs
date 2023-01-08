@@ -6,6 +6,8 @@ using UnityEngine.EventSystems;
 
 public abstract class Animal : ICollidable
 {
+    [SerializeField] private GameObject spiritPrefab;
+
     protected string type;
     protected float maxSpeed;
     protected float minSpeed;
@@ -17,6 +19,7 @@ public abstract class Animal : ICollidable
     public virtual void Die()
     {
         print("Animal is dead");
+        Instantiate(spiritPrefab, transform.position, Quaternion.identity);
         Destroy(this.gameObject);
     }
     protected virtual void Start()
@@ -74,9 +77,11 @@ public abstract class Animal : ICollidable
         Roam();
     }
 
-    public override void OnCollision(Vector2 collisionDifference)
+    public override void OnCollision(Vector2 collisionDifference, GameObject other)
     {
         this.transform.Translate(-collisionDifference);
         CalculateNewMovVector();
     }
+
+    public override void OnCollisionEnd(GameObject other) { }
 }
