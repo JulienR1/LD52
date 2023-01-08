@@ -20,6 +20,10 @@ public class Gage : MonoBehaviour
     {
         filledPercent -= soulConsuptionRate * Time.deltaTime;
         UpdateGage(filledPercent);
+        if (filledPercent <= 0)
+        {
+            GameManager.GameOver();
+        }
     }
 
     public void AddSouls(int soulCount)
@@ -29,6 +33,6 @@ public class Gage : MonoBehaviour
 
     private void UpdateGage(float percent)
     {
-        foreground.sizeDelta = new Vector2(percent * background.sizeDelta.x, foreground.sizeDelta.y);
+        foreground.sizeDelta = new Vector2(Mathf.Clamp01(percent) * background.sizeDelta.x, foreground.sizeDelta.y);
     }
 }

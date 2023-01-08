@@ -27,4 +27,9 @@ public class GameManager : MonoBehaviour
         GameManager.instance.soulCount += soulCount;
         GameManager.instance.gage.AddSouls(soulCount);
     }
+
+    public static void GameOver()
+    {
+        print("GAMe over noob");
+    }
 }
