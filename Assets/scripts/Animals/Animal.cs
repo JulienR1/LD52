@@ -7,7 +7,8 @@ using UnityEngine.EventSystems;
 public abstract class Animal : ICollidable
 {
     protected string type;
-    protected float speed;
+    protected float maxSpeed;
+    protected float minSpeed;
     protected float directionChangeTime;
 
     private float lastDirChangeTime;
@@ -25,8 +26,19 @@ public abstract class Animal : ICollidable
     }
     private void CalculateNewMovVector()
     {
-        Vector2 movDir = new Vector2(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)).normalized;
-        movPerSec = movDir * speed;
+        float speedFactor = Random.Range(0.5f, 1.0f);
+        float randomizedSpeed = minSpeed + (maxSpeed - minSpeed) * speedFactor;
+        float remainStaticProbability = Random.Range(0.0f, 1.0f);
+        float newDirectionSmoothing = 0.01f;
+
+        Stop();
+        
+        if(remainStaticProbability > 0.3f){
+            Vector2 movDir = new Vector2(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)).normalized;
+            movPerSec = Vector2.Lerp(movPerSec, movDir * randomizedSpeed,  Time.deltaTime / newDirectionSmoothing );
+            
+            // movPerSec = movDir * randomizedSpeed;
+        }
     }
 
     private void Move()
@@ -34,6 +46,11 @@ public abstract class Animal : ICollidable
         transform.position = new Vector2(transform.position.x + (movPerSec.x * Time.deltaTime),
         transform.position.y + (movPerSec.y * Time.deltaTime));
     }
+
+    private void Stop(){
+        movPerSec = Vector2.zero;
+    }
+    
     protected virtual void Roam()
     {
         if (Time.time - lastDirChangeTime > directionChangeTime)
@@ -44,13 +61,13 @@ public abstract class Animal : ICollidable
         Move();
     }
 
-    public void OnTriggerEnter2D(Collision2D collision)
-    {
-        print("collison");
-        lastDirChangeTime = Time.time;
-        CalculateNewMovVector();
-        Move();
-    }
+    // public void OnTriggerEnter2D(Collision2D collision)
+    // {
+    //     print("collison");
+    //     lastDirChangeTime = Time.time;
+    //     CalculateNewMovVector();
+    //     Move();
+    // }
 
     protected virtual void Update()
     {
@@ -60,5 +77,6 @@ public abstract class Animal : ICollidable
     public override void OnCollision(Vector2 collisionDifference)
     {
         this.transform.Translate(-collisionDifference);
+        CalculateNewMovVector();
     }
 }
