@@ -9,6 +9,7 @@ public class LevelManager : MonoBehaviour
 
     public GameObject player;
     public GameObject well;
+    public GameObject spawner;
 
     void Start()
     {
@@ -20,5 +21,6 @@ public class LevelManager : MonoBehaviour
         GameObject spawnPoint = GameObject.Find("(0, 0)");
         Instantiate(well, spawnPoint.transform.position, Quaternion.identity);
         Instantiate(player, spawnPoint.transform.position, Quaternion.identity);
+        Instantiate(spawner, spawnPoint.transform.position, Quaternion.identity);
     }
 }
