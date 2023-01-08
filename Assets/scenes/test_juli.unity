@@ -933,7 +933,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1816943112}
   - component: {fileID: 1816943111}
-  - component: {fileID: 1816943113}
   - component: {fileID: 1816943114}
   m_Layer: 0
   m_Name: scythe
@@ -955,13 +954,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackArea: {fileID: 953366135}
+  weaponHolder: {fileID: 2074901885}
   animator: {fileID: 1816943114}
   swingAnimation: {fileID: 7400000, guid: 3bc77f8a065b7a0418c6d0fec8d68b59, type: 2}
   radius: 0.25
   angleInDegrees: 53
-  forwardDirection: {x: 0.03, y: 16.8, z: 0}
+  forwardDirection: {x: 1, y: 0.41, z: 0}
+  mouseInactivityRadius: 0.4
+  spinAround: {fileID: 2074901885}
   attackDuration: 0.5
-  attackCooldown: 1.5
+  attackCooldown: 0.2
 --- !u!4 &1816943112
 Transform:
   m_ObjectHideFlags: 0
@@ -970,30 +972,16 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1816943110}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.425, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1120481860}
   - {fileID: 1539810146}
   - {fileID: 953366134}
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_Father: {fileID: 2074901885}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1816943113
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1816943110}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df38b2046d881914cad74240ef3dd7bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 2074901885}
-  moveSpeed: 5
 --- !u!95 &1816943114
 Animator:
   serializedVersion: 5
@@ -1024,7 +1012,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2074901885}
   m_Layer: 7
-  m_Name: weapon attach point
+  m_Name: weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1037,11 +1025,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2074901884}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.195, y: -0.146, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1816943112}
   m_Father: {fileID: 1506220040}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

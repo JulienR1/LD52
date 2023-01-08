@@ -44,12 +44,15 @@ public class Spirit : MonoBehaviour
         var offsetToTarget = reaper.transform.position - transform.position;
         var regularDirection = (1 - drunkFactor) * offsetToTarget;
         var drunkDirection = drunkFactor * GetDrunkDirection();
-        var dot = Vector3.Dot(regularDirection, velocity.normalized);
 
         var oldVelocity = velocity;
+        var dot = Vector3.Dot(regularDirection, oldVelocity.normalized);
+
         if (offsetToTarget.sqrMagnitude > minimumDistance * minimumDistance)
-            velocity += ((regularDirection + drunkDirection) * acceleration) * Time.deltaTime;
-        velocity += dampingFactor * (dot - 1) * oldVelocity * Time.deltaTime;
+            velocity += regularDirection * acceleration * Time.deltaTime;
+        if (velocity.sqrMagnitude > minimumDistance)
+            velocity += dampingFactor * (dot - 1) * oldVelocity * Time.deltaTime;
+        velocity += drunkDirection * acceleration * Time.deltaTime;
 
         transform.position += velocity * Time.deltaTime;
     }
@@ -60,5 +63,11 @@ public class Spirit : MonoBehaviour
         var percent = Mathf.Clamp01(rawPercent);
         var angle = percent * 2 * Mathf.PI;
         return new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, transform.position + velocity.normalized);
     }
 }

@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Follower))]
 public class Scythe : ICollidable
 {
     [SerializeField] private PolygonCollider2D attackArea;
+    [SerializeField] private Transform weaponHolder;
 
     [SerializeField] private Animator animator;
     [SerializeField] private AnimationClip swingAnimation;
@@ -16,11 +16,12 @@ public class Scythe : ICollidable
     private float angleInDegrees = 30;
 
     [SerializeField] private Vector3 forwardDirection;
+    [SerializeField] private float mouseInactivityRadius;
+    [SerializeField] private Transform spinAround;
 
     [SerializeField] private float attackDuration = 1.5f;
     [SerializeField] private float attackCooldown = 1.5f;
 
-    private Follower follower;
     private bool isAttacking = false;
     private bool isOnCooldown = false;
 
@@ -28,7 +29,6 @@ public class Scythe : ICollidable
 
     private void Awake()
     {
-        this.follower = GetComponent<Follower>();
         InitializeAttackArea();
     }
 
@@ -38,18 +38,17 @@ public class Scythe : ICollidable
             LookAtMouse();
     }
 
-    private Vector3 GetDirectionToMouse()
+    private void LookAtMouse()
     {
         var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0;
-        return (mousePosition - transform.position).normalized;
-    }
 
-    private void LookAtMouse()
-    {
-        var directionToMouse = GetDirectionToMouse();
+        if ((mousePosition - spinAround.position).sqrMagnitude < mouseInactivityRadius * mouseInactivityRadius)
+            return;
+
+        var directionToMouse = (mousePosition - spinAround.position).normalized;
         var angle = Vector3.SignedAngle(forwardDirection, directionToMouse, Vector3.forward);
-        transform.rotation = Quaternion.Euler(0, 0, angle);
+        weaponHolder.rotation = Quaternion.Euler(0, 0, angle);
     }
 
     private (Vector3, Vector3) GetAttackArea()
@@ -76,12 +75,10 @@ public class Scythe : ICollidable
     private IEnumerator AttackCoroutine()
     {
         isAttacking = true;
-        follower.Toggle(false);
         animator.SetBool("isAttacking", true);
         animator.speed = swingAnimation.length / attackDuration;
         yield return new WaitForSeconds(attackDuration);
         animator.SetBool("isAttacking", false);
-        follower.Toggle(true);
         isAttacking = false;
         isOnCooldown = true;
 
@@ -126,5 +123,8 @@ public class Scythe : ICollidable
 
         Gizmos.color = Color.blue;
         Gizmos.DrawLine(transform.position, transform.position + forwardDirection.normalized);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(spinAround.position, mouseInactivityRadius);
     }
 }
