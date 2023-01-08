@@ -26,7 +26,9 @@ public class PlayerController : ICollidable
 
     public override void OnCollision(Vector2 collisionDifference, GameObject other)
     {
-        this.transform.Translate(-collisionDifference);
+        if(other.tag != "Puit"){
+            this.transform.Translate(-collisionDifference);
+        }
     }
 
     public override void OnCollisionEnd(GameObject other) { }

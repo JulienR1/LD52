@@ -82,7 +82,7 @@ public abstract class Animal : ICollidable
     public override void OnCollision(Vector2 collisionDifference, GameObject other)
     {
         int layermask = LayerMask.NameToLayer("player");
-        if (other.layer != layermask)
+        if (other.tag != "Puit" && other.layer != layermask)
         {
             this.transform.Translate(-collisionDifference);
             CalculateNewMovVector();
