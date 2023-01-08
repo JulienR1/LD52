@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Follower : MonoBehaviour
@@ -19,7 +17,9 @@ public class Follower : MonoBehaviour
     private void FollowTarget()
     {
         var offsetToTarget = target.position - transform.position;
-        transform.position += offsetToTarget * moveSpeed * Time.deltaTime;
+        var positionChange = offsetToTarget * moveSpeed * Time.deltaTime;
+        positionChange.z = 0;
+        transform.position += positionChange;
     }
 
     public void Toggle(bool isFollowing)
