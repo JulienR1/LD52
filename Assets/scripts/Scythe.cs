@@ -11,8 +11,7 @@ public class Scythe : ICollidable
     [SerializeField] private AnimationClip swingAnimation;
 
     [SerializeField] private float radius = 1;
-    [SerializeField]
-    [Range(0, 360)]
+    [SerializeField, Range(0, 360)]
     private float angleInDegrees = 30;
 
     [SerializeField] private Vector3 forwardDirection;

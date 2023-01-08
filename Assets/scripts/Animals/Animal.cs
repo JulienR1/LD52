@@ -35,11 +35,12 @@ public abstract class Animal : ICollidable
         float newDirectionSmoothing = 0.01f;
 
         Stop();
-        
-        if(remainStaticProbability > 0.3f){
+
+        if (remainStaticProbability > 0.3f)
+        {
             Vector2 movDir = new Vector2(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)).normalized;
-            movPerSec = Vector2.Lerp(movPerSec, movDir * randomizedSpeed,  Time.deltaTime / newDirectionSmoothing );
-            
+            movPerSec = Vector2.Lerp(movPerSec, movDir * randomizedSpeed, Time.deltaTime / newDirectionSmoothing);
+
             // movPerSec = movDir * randomizedSpeed;
         }
     }
@@ -50,10 +51,11 @@ public abstract class Animal : ICollidable
         transform.position.y + (movPerSec.y * Time.deltaTime));
     }
 
-    private void Stop(){
+    private void Stop()
+    {
         movPerSec = Vector2.zero;
     }
-    
+
     protected virtual void Roam()
     {
         if (Time.time - lastDirChangeTime > directionChangeTime)
@@ -79,8 +81,12 @@ public abstract class Animal : ICollidable
 
     public override void OnCollision(Vector2 collisionDifference, GameObject other)
     {
-        this.transform.Translate(-collisionDifference);
-        CalculateNewMovVector();
+        int layermask = LayerMask.NameToLayer("player");
+        if (other.layer != layermask)
+        {
+            this.transform.Translate(-collisionDifference);
+            CalculateNewMovVector();
+        }
     }
 
     public override void OnCollisionEnd(GameObject other) { }
