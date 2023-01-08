@@ -6,46 +6,51 @@ public class Puit : MonoBehaviour
 {
     private int souls = 0;
 
-    public int getSouls(){
+    public int getSouls()
+    {
         return souls;
     }
 
     [SerializeField] private bool triggerActive = false;
- 
-        public void OnTriggerEnter2D(Collider2D other)
+
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
         {
-            if (other.CompareTag("Player"))
-            {
-                triggerActive = true;
-            }
+            triggerActive = true;
         }
- 
-        public void OnTriggerExit2D(Collider2D other)
+    }
+
+    public void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
         {
-            if (other.CompareTag("Player"))
-            {
-                triggerActive = false;
-            }
+            triggerActive = false;
         }
- 
-        private void Update()
-        {    
-            if (triggerActive && InputManager.GetActionDown(KeyAction.Interact))
-            {
-                print("Balayeuse");
-                Balayeuse();
-            }
-        }
- 
-        public void Balayeuse()
+    }
+
+    private void Update()
+    {
+        if (triggerActive && InputManager.GetActionDown(KeyAction.Interact))
         {
-            //TODO generate event so the game is freeze or whatever...
-            foreach(GameObject spiritObj in GameObject.FindGameObjectsWithTag("Soul")){
-                souls++;
-                print(souls);
-                spiritObj.transform.position = Vector2.MoveTowards(spiritObj.transform.position, this.transform.position, 1);
+            Balayeuse();
+        }
+    }
+
+    public void Balayeuse()
+    {
+        //TODO generate event so the game is freeze or whatever...
+        foreach (GameObject spiritObj in GameObject.FindGameObjectsWithTag("Soul"))
+        {
+            souls++;
+            print(souls);
+            spiritObj.transform.position = Vector2.MoveTowards(spiritObj.transform.position, this.transform.position, 1);
+            if (Vector2.Distance(spiritObj.transform.position, this.transform.position) < 0.1f)
+            {
+                GameManager.AddSouls(1);
                 Destroy(spiritObj);
             }
         }
-        
+    }
+
 }

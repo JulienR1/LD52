@@ -20,24 +20,26 @@ public class Map : MonoBehaviour
     public GameObject[,] tiles;
 
 
-    private void Start() {
-        CreateMap();    
+    private void Start()
+    {
+        CreateMap();
     }
 
     private void CreateMap()
     {
         tiles = new GameObject[mapScale, mapScale];
-        
+
         // Crée la map
         for (int x = 0; x < mapScale; x++)
         {
             for (int y = 0; y < mapScale; y++)
             {
-                Vector2 tilePosition = new Vector2(x * tileSize, y * tileSize);
+                Vector2 tilePosition = new Vector2(x * tileSize - mapScale * 0.5f, y * tileSize - mapScale * 0.5f);
                 GameObject tile = GameObject.Instantiate(tilePrefab, tilePosition, Quaternion.identity);
 
                 tile.GetComponent<SpriteRenderer>().sprite = groundSprites[Random.Range(0, groundSprites.Length)];
-                            
+                tile.GetComponent<SpriteRenderer>().sortingOrder = -1;
+
                 tile.transform.parent = GameObject.Find("World").transform;
                 tile.name = "World " + x + "_" + y + "";
                 tiles[x, y] = tile;
@@ -48,10 +50,11 @@ public class Map : MonoBehaviour
     }
 
 
-    private void GenerateLevel(GameObject[,] tiles){
-        int startX = mapScale/2 - levelWidth/2;
-        int startY = mapScale/2 - levelHeight/2;
-        
+    private void GenerateLevel(GameObject[,] tiles)
+    {
+        int startX = mapScale / 2 - levelWidth / 2;
+        int startY = mapScale / 2 - levelHeight / 2;
+
         // Recentre le niveau
         for (int x = startX; x < startX + levelWidth + 2; x++)
         {
@@ -65,30 +68,42 @@ public class Map : MonoBehaviour
                 edgeTile.GetComponent<SpriteRenderer>().sortingOrder = 1;
 
                 edgeTile.AddComponent<BoxCollider2D>();
-                edgeTile.GetComponent<BoxCollider2D>().size = new Vector2(0.165f, 0.165f);
                 edgeTile.GetComponent<BoxCollider2D>().offset = new Vector2(0, 0);
+                edgeTile.GetComponent<BoxCollider2D>().isTrigger = true;
 
                 // Génère les bordures du niveau et détruit les tuiles dupliqués à l'intérieur du niveau 
                 if (x == startX || x == startX + levelWidth + 1)
                 {
                     edgeTile.GetComponent<SpriteRenderer>().sprite = edgeVerticalSprite;
+                    edgeTile.GetComponent<BoxCollider2D>().size = new Vector2(0.165f * 0.5f, 0.165f);
+
                 }
                 else if (y == startY || y == startY + levelHeight + 1)
                 {
                     edgeTile.GetComponent<SpriteRenderer>().sprite = edgeHorizontalSprite;
+                    edgeTile.GetComponent<BoxCollider2D>().size = new Vector2(0.165f, 0.165f * 0.5f);
+
                 }
-                else{
+                else
+                {
                     Destroy(edgeTile);
                 }
 
                 // Change le sprite des coins pour le sprite de coin respectif
-                if (x == startX && y == startY){
+                if (x == startX && y == startY)
+                {
                     edgeTile.GetComponent<SpriteRenderer>().sprite = clockwiseCornerSprites[3];
-                }else if(x == startX + levelWidth + 1 && y == startY + levelHeight + 1){
+                }
+                else if (x == startX + levelWidth + 1 && y == startY + levelHeight + 1)
+                {
                     edgeTile.GetComponent<SpriteRenderer>().sprite = clockwiseCornerSprites[1];
-                }else if(x == startX + levelWidth + 1 && y == startY){
+                }
+                else if (x == startX + levelWidth + 1 && y == startY)
+                {
                     edgeTile.GetComponent<SpriteRenderer>().sprite = clockwiseCornerSprites[2];
-                }else if(x == startX && y == startY + levelHeight + 1){
+                }
+                else if (x == startX && y == startY + levelHeight + 1)
+                {
                     edgeTile.GetComponent<SpriteRenderer>().sprite = clockwiseCornerSprites[0];
                 }
             }
@@ -101,7 +116,7 @@ public class Map : MonoBehaviour
             {
                 GameObject tile = tiles[x + startX + 1, y + startY + 1];
                 tile.transform.parent = GameObject.Find("Level").transform;
-                tile.name = "(" + (x - levelWidth/2) + ", " + (y - levelHeight/2) + ")";
+                tile.name = "(" + (x - levelWidth / 2) + ", " + (y - levelHeight / 2) + ")";
             }
         }
     }

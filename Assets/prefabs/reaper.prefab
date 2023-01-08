@@ -261,7 +261,7 @@ Transform:
   - {fileID: 750970421032036649}
   - {fileID: 750970419336835871}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &750970419901535851
 MonoBehaviour:
@@ -592,7 +592,7 @@ GameObject:
   - component: {fileID: 750970421032036655}
   m_Layer: 7
   m_Name: collider
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
