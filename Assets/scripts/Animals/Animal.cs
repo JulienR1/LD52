@@ -6,6 +6,8 @@ using UnityEngine.EventSystems;
 
 public abstract class Animal : ICollidable
 {
+    [SerializeField] private GameObject spiritPrefab;
+
     protected string type;
     protected float speed;
     protected float directionChangeTime;
@@ -16,6 +18,7 @@ public abstract class Animal : ICollidable
     public virtual void Die()
     {
         print("Animal is dead");
+        Instantiate(spiritPrefab, transform.position, Quaternion.identity);
         Destroy(this.gameObject);
     }
     protected virtual void Start()
