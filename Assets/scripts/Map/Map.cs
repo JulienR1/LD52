@@ -28,7 +28,7 @@ public class Map : MonoBehaviour
     {
         tiles = new GameObject[mapScale, mapScale];
         
-        // Name the tiles with their coordinates and make sure that 0,0 is in the center centered tile
+        // Crée la map
         for (int x = 0; x < mapScale; x++)
         {
             for (int y = 0; y < mapScale; y++)
@@ -63,6 +63,10 @@ public class Map : MonoBehaviour
                 edgeTile.transform.parent = GameObject.Find("Level Edges").transform;
                 edgeTile.name = "Edge " + x + "_" + y + "";
                 edgeTile.GetComponent<SpriteRenderer>().sortingOrder = 1;
+
+                edgeTile.AddComponent<BoxCollider2D>();
+                edgeTile.GetComponent<BoxCollider2D>().size = new Vector2(0.165f, 0.165f);
+                edgeTile.GetComponent<BoxCollider2D>().offset = new Vector2(0, 0);
 
                 // Génère les bordures du niveau et détruit les tuiles dupliqués à l'intérieur du niveau 
                 if (x == startX || x == startX + levelWidth + 1)
