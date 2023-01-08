@@ -79,8 +79,10 @@ public abstract class Animal : ICollidable
 
     public override void OnCollision(Vector2 collisionDifference, GameObject other)
     {
-        this.transform.Translate(-collisionDifference);
-        CalculateNewMovVector();
+        if(other.tag != "Puit"){
+            this.transform.Translate(-collisionDifference);
+            CalculateNewMovVector();
+        }
     }
 
     public override void OnCollisionEnd(GameObject other) { }
