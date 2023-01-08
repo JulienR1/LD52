@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Gage : MonoBehaviour
@@ -32,6 +30,5 @@ public class Gage : MonoBehaviour
     private void UpdateGage(float percent)
     {
         foreground.sizeDelta = new Vector2(percent * background.sizeDelta.x, foreground.sizeDelta.y);
-        // foreground.localScale = new Vector3(Mathf.Clamp01(percent), 1, 1);
     }
 }
