@@ -18,8 +18,8 @@ public class Scythe : ICollidable
     [SerializeField] private float mouseInactivityRadius;
     [SerializeField] private Transform spinAround;
 
-    [SerializeField] private float attackDuration = 1.5f;
-    [SerializeField] private float attackCooldown = 1.5f;
+    [SerializeField] private float attackDuration = 0.5f;
+    [SerializeField] private float attackCooldown = 0.2f;
 
     private bool isAttacking = false;
     private bool isOnCooldown = false;
@@ -39,6 +39,7 @@ public class Scythe : ICollidable
 
     private void LookAtMouse()
     {
+
         var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0;
 
@@ -47,7 +48,11 @@ public class Scythe : ICollidable
 
         var directionToMouse = (mousePosition - spinAround.position).normalized;
         var angle = Vector3.SignedAngle(forwardDirection, directionToMouse, Vector3.forward);
-        weaponHolder.rotation = Quaternion.Euler(0, 0, angle);
+
+        // if mouse is on the left side of the player, rotate the scythe in the opposite direction
+        var xAnle = 0;
+        if (mousePosition.x < spinAround.position.x) {xAnle = 180; angle = -angle;}
+        weaponHolder.rotation = Quaternion.Euler(xAnle, 0, angle);
     }
 
     private (Vector3, Vector3) GetAttackArea()

@@ -21,6 +21,13 @@ public class PlayerController : ICollidable
         var targetVelocity = input * speedFactor * moveSpeed * Time.deltaTime;
 
         velocity = Vector3.Lerp(velocity, targetVelocity, acceleration * Time.deltaTime);
+
+        var graphics = this.transform.Find("graphics");
+        var weapon = this.transform.Find("weapon");
+        
+        if (Input.mousePosition.x < Screen.width / 2) graphics.rotation = Quaternion.Lerp(graphics.rotation, Quaternion.Euler(0, 180, 0), 0.2f);
+        else graphics.rotation = Quaternion.Lerp(graphics.rotation, Quaternion.Euler(0, 0, 0), 0.2f);
+
         this.transform.Translate(velocity.x, velocity.y, 0);
     }
 

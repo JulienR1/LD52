@@ -12,16 +12,22 @@ public abstract class Animal : ICollidable
     protected float maxSpeed;
     protected float minSpeed;
     protected float directionChangeTime;
+    protected string deadSpritePath;
 
     private float lastDirChangeTime;
     private Vector2 movPerSec;
 
     public virtual void Die()
     {
-        print("Animal is dead");
-        Instantiate(spiritPrefab, transform.position, Quaternion.identity);
+        createCorpse();
+
+        GameObject spirit = Instantiate(spiritPrefab, transform.position, Quaternion.identity);
+        spirit.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = 1;
+        
+        
         Destroy(this.gameObject);
     }
+
     protected virtual void Start()
     {
         lastDirChangeTime = 0f;
@@ -40,8 +46,6 @@ public abstract class Animal : ICollidable
         {
             Vector2 movDir = new Vector2(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)).normalized;
             movPerSec = Vector2.Lerp(movPerSec, movDir * randomizedSpeed, Time.deltaTime / newDirectionSmoothing);
-
-            // movPerSec = movDir * randomizedSpeed;
         }
     }
 
@@ -66,14 +70,6 @@ public abstract class Animal : ICollidable
         Move();
     }
 
-    // public void OnTriggerEnter2D(Collision2D collision)
-    // {
-    //     print("collison");
-    //     lastDirChangeTime = Time.time;
-    //     CalculateNewMovVector();
-    //     Move();
-    // }
-
     protected virtual void Update()
     {
         Roam();
@@ -90,4 +86,15 @@ public abstract class Animal : ICollidable
     }
 
     public override void OnCollisionEnd(GameObject other) { }
+
+    private void createCorpse(){
+        GameObject corpse = new GameObject();
+        SpriteRenderer sr = corpse.AddComponent<SpriteRenderer>();
+        sr.sprite = Resources.Load<Sprite>("sprites/animals/" + deadSpritePath);
+        sr.sortingOrder = 0;
+        corpse.transform.position = this.transform.position;
+        corpse.transform.localScale = 2 * this.transform.localScale;
+        corpse.transform.parent = this.transform.parent;
+        corpse.name = type + " corpse";
+    }
 }
