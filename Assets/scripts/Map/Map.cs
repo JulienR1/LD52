@@ -19,13 +19,13 @@ public class Map : MonoBehaviour
 
     public GameObject[,] tiles;
 
-
     private void Start()
     {
         CreateMap();
+        Destroy(tilePrefab);
     }
 
-    private void CreateMap()
+    public void CreateMap()
     {
         tiles = new GameObject[mapScale, mapScale];
 
@@ -40,7 +40,7 @@ public class Map : MonoBehaviour
                 tile.GetComponent<SpriteRenderer>().sprite = groundSprites[Random.Range(0, groundSprites.Length)];
                 tile.GetComponent<SpriteRenderer>().sortingOrder = -1;
 
-                tile.transform.parent = GameObject.Find("World").transform;
+                tile.transform.parent = GameObject.Find("world").transform;
                 tile.name = "World " + x + "_" + y + "";
                 tiles[x, y] = tile;
             }
@@ -63,7 +63,7 @@ public class Map : MonoBehaviour
                 GameObject tile = tiles[x, y];
 
                 GameObject edgeTile = GameObject.Instantiate(tile, tile.transform.position, Quaternion.identity);
-                edgeTile.transform.parent = GameObject.Find("Level Edges").transform;
+                edgeTile.transform.parent = GameObject.Find("level edges").transform;
                 edgeTile.name = "Edge " + x + "_" + y + "";
                 edgeTile.GetComponent<SpriteRenderer>().sortingOrder = 1;
 
@@ -115,7 +115,7 @@ public class Map : MonoBehaviour
             for (int y = 0; y < levelHeight; y++)
             {
                 GameObject tile = tiles[x + startX + 1, y + startY + 1];
-                tile.transform.parent = GameObject.Find("Level").transform;
+                tile.transform.parent = GameObject.Find("level").transform;
                 tile.name = "(" + (x - levelWidth / 2) + ", " + (y - levelHeight / 2) + ")";
             }
         }
