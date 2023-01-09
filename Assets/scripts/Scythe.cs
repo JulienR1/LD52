@@ -88,7 +88,7 @@ public class Scythe : ICollidable
 
         for (int i = 0; i < animalsInRange.Count; i++)
         {
-            animalsInRange[animalsInRange.Count - i - 1].Die();
+            animalsInRange[animalsInRange.Count - i - 1].Damage();
         }
 
         yield return new WaitForSeconds(attackCooldown);

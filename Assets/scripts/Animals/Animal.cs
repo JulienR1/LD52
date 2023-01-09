@@ -5,14 +5,25 @@ public class Animal : ICollidable
     [SerializeField] public AnimalData specs;
     [SerializeField] private SpriteRenderer graphics;
 
+    private int currentHealth;
     private float lastDirChangeTime;
     private Vector2 movPerSec;
 
-    public virtual void Die()
+    private bool isPanicking = false;
+    private float panickEndTime;
+
+    public virtual void Damage()
     {
+        currentHealth--;
+        isPanicking = true;
+        panickEndTime = Time.time + specs.panickDuration;
+        if (currentHealth > 0)
+            return;
+
         createCorpse();
 
-        GameObject spirit = Instantiate(specs.spiritPrefab, transform.position, Quaternion.identity);
+        for (int i = 0; i < specs.soulsDropped; i++)
+            Instantiate(specs.spiritPrefab, transform.position, Quaternion.identity);
         Destroy(this.gameObject);
     }
 
@@ -20,6 +31,7 @@ public class Animal : ICollidable
     {
         lastDirChangeTime = 0f;
         graphics.sprite = specs.sprite;
+        currentHealth = specs.healthPoint;
         CalculateNewMovVector();
     }
     private void CalculateNewMovVector()
@@ -40,8 +52,7 @@ public class Animal : ICollidable
 
     private void Move()
     {
-        transform.position = new Vector2(transform.position.x + (movPerSec.x * Time.deltaTime),
-        transform.position.y + (movPerSec.y * Time.deltaTime));
+        transform.position += new Vector3(movPerSec.x, movPerSec.y, 0) * Time.deltaTime * (isPanicking ? specs.panickMoveSpeedFactor : 0);
     }
 
     private void Stop()
@@ -61,6 +72,9 @@ public class Animal : ICollidable
 
     protected virtual void Update()
     {
+        if (Time.time >= panickEndTime)
+            isPanicking = false;
+
         Roam();
     }
 

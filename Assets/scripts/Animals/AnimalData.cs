@@ -10,6 +10,11 @@ public class AnimalData : ScriptableObject
     public List<Sprite> deadSprites;
 
     [Header("Settings")]
+    public int healthPoint;
+    public int soulsDropped;
     public Vector2 speedRange;
     public float directionChangeTime;
+
+    public float panickDuration;
+    public float panickMoveSpeedFactor;
 }
