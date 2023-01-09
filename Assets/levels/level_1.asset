@@ -21,9 +21,3 @@ MonoBehaviour:
     initialSpawnCount: 3
     maxAnimalCount: 5
     spawnRateInsec: 2
-  - animals:
-    - {fileID: 11400000, guid: 747e17deea7e89e419b57c9fedaa4665, type: 2}
-    spawnRangeMinMax: {x: 3, y: 5}
-    initialSpawnCount: 5
-    maxAnimalCount: 20
-    spawnRateInsec: 3
