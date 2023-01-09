@@ -12,7 +12,7 @@ public abstract class Animal : ICollidable
     protected float maxSpeed;
     protected float minSpeed;
     protected float directionChangeTime;
-    protected string deadSpritePath;
+    protected string deadSprite;
 
     private float lastDirChangeTime;
     private Vector2 movPerSec;
@@ -88,13 +88,15 @@ public abstract class Animal : ICollidable
     public override void OnCollisionEnd(GameObject other) { }
 
     private void createCorpse(){
+        if (!GameObject.Find("corpses")) new GameObject("corpses");
+        
         GameObject corpse = new GameObject();
         SpriteRenderer sr = corpse.AddComponent<SpriteRenderer>();
-        sr.sprite = Resources.Load<Sprite>("sprites/animals/" + deadSpritePath);
+        sr.sprite = Resources.Load<Sprite>("sprites/animals/" + deadSprite);
         sr.sortingOrder = 0;
         corpse.transform.position = this.transform.position;
         corpse.transform.localScale = 2 * this.transform.localScale;
-        corpse.transform.parent = this.transform.parent;
+        corpse.transform.parent = GameObject.Find("corpses").transform;
         corpse.name = type + " corpse";
     }
 }

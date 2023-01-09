@@ -12,6 +12,6 @@ public class Chicken : Animal
         minSpeed = 1f;
         maxSpeed = 1.5f;
         directionChangeTime = 1f;
-        deadSpritePath = "skeleton-0";
+        deadSprite = "skeleton-0";
     }
 }

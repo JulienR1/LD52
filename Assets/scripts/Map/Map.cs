@@ -7,7 +7,7 @@ public class Map : MonoBehaviour
     public int levelWidth;
     public int levelHeight;
 
-    public int mapScale = 100;
+    public int mapScale;
     private float tileSize = 1.0f;
 
     public GameObject tilePrefab;
@@ -21,6 +21,9 @@ public class Map : MonoBehaviour
 
     private void Start()
     {
+        mapScale = levelWidth > levelHeight ? levelWidth : levelHeight;
+        mapScale = mapScale + 10;
+        
         CreateMap();
         Destroy(tilePrefab);
     }
@@ -52,8 +55,8 @@ public class Map : MonoBehaviour
 
     private void GenerateLevel(GameObject[,] tiles)
     {
-        int startX = mapScale / 2 - levelWidth / 2;
-        int startY = mapScale / 2 - levelHeight / 2;
+        int startX = (mapScale - 2) / 2 - levelWidth / 2;
+        int startY = (mapScale - 2) / 2 - levelHeight / 2;
 
         // Recentre le niveau
         for (int x = startX; x < startX + levelWidth + 2; x++)
