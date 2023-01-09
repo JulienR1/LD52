@@ -10,16 +10,17 @@ public class CardManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
-    public void showCards(){
-        fillCard.EnableCard();
+    public void showCards()
+    {
+        // fillCard.EnableCard();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

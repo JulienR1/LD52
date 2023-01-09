@@ -18,12 +18,14 @@ public class GameManager : MonoBehaviour
     private float score;
     private int soulCount;
 
-    public static int GetSoulCount(){
-        return soulCount;
+    public static int GetSoulCount()
+    {
+        return GameManager.instance.soulCount;
     }
 
-    public static void SetSoulCount(int newSoulCount){
-        soulCount = newSoulCount;
+    public static void SetSoulCount(int newSoulCount)
+    {
+        GameManager.instance.soulCount = newSoulCount;
     }
 
     private void Awake()
@@ -49,8 +51,9 @@ public class GameManager : MonoBehaviour
         GameManager.instance.score += soulCount * GameManager.instance.soulBonusScore;
     }
 
-    public static void ShoppingTime(){
-        cardManager.showCards();
+    public static void ShoppingTime()
+    {
+        // GameManager.instance.cardManager.showCards();
     }
 
     public static void GameOver()
