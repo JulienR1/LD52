@@ -16,14 +16,16 @@ public class Fog : MonoBehaviour
     // Create a fog of war using a sprite on the camera
     public void CreateFog()
     {
-        // create a new game object Fog and attach it to the player
         GameObject fog = new GameObject("Fog");
         fog.transform.parent = GameObject.FindGameObjectWithTag("Player").transform;
 
-        SpriteRenderer fogSprite = fog.AddComponent<SpriteRenderer>();
-        fogSprite.sprite = Resources.Load<Sprite>("sprites/environment/fow_mask");
-        fogSprite.sortingOrder = 9;
-        fogSprite.color = new Color(0, 0, 0, 0.5f);
+        SpriteRenderer fogRenderer = fog.AddComponent<SpriteRenderer>();
+        fogRenderer.sprite = Resources.Load<Sprite>("sprites/environment/mask");
+        fogRenderer.color = new Color(255, 255, 255, 0.05f);
+        fogRenderer.sortingOrder = 0;
+
+        fog.transform.localScale = new Vector2(cam.aspect * cam.orthographicSize * 4, cam.orthographicSize * 4);
+        fog.transform.position = new Vector2(cam.transform.position.x, cam.transform.position.y - 0.25f);
     }
 
     public void Update()
@@ -31,14 +33,13 @@ public class Fog : MonoBehaviour
         GameObject fog = GameObject.Find("Fog");
         GameObject player = GameObject.FindGameObjectWithTag("Player");
 
-        fog.transform.localScale = new Vector2(cam.aspect * cam.orthographicSize * 2, cam.orthographicSize * 2);
-        fog.transform.position = new Vector2(player.transform.position.x, player.transform.position.y);
-
         // disable object tagged "Animal" when outside the mask
         GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
         foreach (GameObject animal in animals)
         {
-        animal.transform.Find("graphics").GetComponent<SpriteRenderer>().enabled = fog.GetComponent<SpriteRenderer>().bounds.Contains(animal.transform.position);
+            animal.transform.Find("graphics").GetComponent<SpriteRenderer>().enabled = fog.GetComponent<SpriteRenderer>().bounds.Contains(animal.transform.position);
         }
+
+        fog.transform.localScale = new Vector2(fog.transform.localScale.x + Mathf.Sin(Time.time * 0.5f) * 0.0025f, fog.transform.localScale.y + Mathf.Sin(Time.time * 0.5f) * 0.0025f);
     }
 }
