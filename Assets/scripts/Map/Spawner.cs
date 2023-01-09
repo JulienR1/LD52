@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    public GameObject[] animalList;
+    public Animal animalPrefab;
+    public AnimalData[] animalList;
 
     public Vector2 spawnRangeMinMax;
     public int animalCountStart;
@@ -39,7 +40,8 @@ public class Spawner : MonoBehaviour
         if (transform.childCount >= maxAnimalsInSpawner)
             return;
 
-        GameObject animal = Instantiate(animalList[Random.Range(0, animalList.Length)], GetRandomSpawnPosition(), Quaternion.identity);
+        var animal = Instantiate(animalPrefab.gameObject, GetRandomSpawnPosition(), Quaternion.identity);
+        animal.GetComponent<Animal>().specs = animalList[Random.Range(0, animalList.Length)];
         animal.transform.SetParent(this.transform);
     }
 

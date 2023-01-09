@@ -7,6 +7,7 @@ public class LevelManager : MonoBehaviour
     public Level[] levels;
     public Map mapBase;
 
+    public Animal animalPrefab;
     public Transform levelHolder;
 
     private int spawnerId = -1;
@@ -51,6 +52,7 @@ public class LevelManager : MonoBehaviour
             var obj = new GameObject("Spawner");
             obj.transform.SetParent(map.transform);
             var spawner = obj.AddComponent<Spawner>();
+            spawner.animalPrefab = animalPrefab;
             spawner.animalList = spawnerData.animals.ToArray();
             spawner.spawnRangeMinMax = spawnerData.spawnRangeMinMax;
             spawner.animalCountStart = spawnerData.initialSpawnCount;

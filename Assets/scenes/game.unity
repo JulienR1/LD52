@@ -854,6 +854,7 @@ MonoBehaviour:
   levels:
   - {fileID: 11400000, guid: 7eb95dd47ea3aa041b2ee11cb183ccb0, type: 2}
   mapBase: {fileID: 2739462011495868912, guid: 4d0af22d99ab69c4bb26bc929f811f27, type: 3}
+  animalPrefab: {fileID: 3343563091949234425, guid: 673a2c01e80050e45a71151f4bbce9c6, type: 3}
   levelHolder: {fileID: 1464518485}
 --- !u!1 &1464518484
 GameObject:

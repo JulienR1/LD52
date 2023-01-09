@@ -1,14 +1,9 @@
 using UnityEngine;
 
-public abstract class Animal : ICollidable
+public class Animal : ICollidable
 {
-    [SerializeField] private GameObject spiritPrefab;
-
-    protected string type;
-    protected float maxSpeed;
-    protected float minSpeed;
-    protected float directionChangeTime;
-    protected string deadSprite;
+    [SerializeField] public AnimalData specs;
+    [SerializeField] private SpriteRenderer graphics;
 
     private float lastDirChangeTime;
     private Vector2 movPerSec;
@@ -17,19 +12,20 @@ public abstract class Animal : ICollidable
     {
         createCorpse();
 
-        GameObject spirit = Instantiate(spiritPrefab, transform.position, Quaternion.identity);
+        GameObject spirit = Instantiate(specs.spiritPrefab, transform.position, Quaternion.identity);
         Destroy(this.gameObject);
     }
 
     protected virtual void Start()
     {
         lastDirChangeTime = 0f;
+        graphics.sprite = specs.sprite;
         CalculateNewMovVector();
     }
     private void CalculateNewMovVector()
     {
         float speedFactor = Random.Range(0.5f, 1.0f);
-        float randomizedSpeed = minSpeed + (maxSpeed - minSpeed) * speedFactor;
+        float randomizedSpeed = specs.speedRange.x + (specs.speedRange.y - specs.speedRange.x) * speedFactor;
         float remainStaticProbability = Random.Range(0.0f, 1.0f);
         float newDirectionSmoothing = 0.01f;
 
@@ -55,7 +51,7 @@ public abstract class Animal : ICollidable
 
     protected virtual void Roam()
     {
-        if (Time.time - lastDirChangeTime > directionChangeTime)
+        if (Time.time - lastDirChangeTime > specs.directionChangeTime)
         {
             lastDirChangeTime = Time.time;
             CalculateNewMovVector();
@@ -82,15 +78,15 @@ public abstract class Animal : ICollidable
 
     private void createCorpse()
     {
-        if (!GameObject.Find("corpses")) new GameObject("corpses");
+        if (!GameObject.Find("corpses"))
+            new GameObject("corpses");
 
-        GameObject corpse = new GameObject();
+        GameObject corpse = new GameObject("corpse");
         SpriteRenderer sr = corpse.AddComponent<SpriteRenderer>();
-        sr.sprite = Resources.Load<Sprite>("sprites/animals/" + deadSprite);
+        sr.sprite = specs.deadSprites[Random.Range(0, specs.deadSprites.Count)];
         sr.sortingOrder = 0;
         corpse.transform.position = this.transform.position;
         corpse.transform.localScale = 2 * this.transform.localScale;
         corpse.transform.parent = GameObject.Find("corpses").transform;
-        corpse.name = type + " corpse";
     }
 }
