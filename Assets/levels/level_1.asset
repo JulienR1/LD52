@@ -12,12 +12,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e256106f7e6d284cadb196b03518763, type: 3}
   m_Name: level_1
   m_EditorClassIdentifier: 
-  width: 11
-  height: 11
+  width: 37
+  height: 37
   spawners:
   - animals:
-    - {fileID: 11400000, guid: 747e17deea7e89e419b57c9fedaa4665, type: 2}
-    spawnRangeMinMax: {x: 2, y: 3}
+    - {fileID: 11400000, guid: b6048a00f24c21d4c952ae68ec2fbf4a, type: 2}
+    spawnRangeMinMax: {x: 4, y: 4}
     initialSpawnCount: 3
     maxAnimalCount: 5
-    spawnRateInsec: 2
+    spawnRateInsec: 5
+  - animals:
+    - {fileID: 11400000, guid: 2ada4399809c36f4f80509d5141c950e, type: 2}
+    spawnRangeMinMax: {x: 8, y: 8}
+    initialSpawnCount: 2
+    maxAnimalCount: 9
+    spawnRateInsec: 7
+  - animals:
+    - {fileID: 11400000, guid: 747e17deea7e89e419b57c9fedaa4665, type: 2}
+    spawnRangeMinMax: {x: 10, y: 10}
+    initialSpawnCount: 2
+    maxAnimalCount: 9
+    spawnRateInsec: 8
+  - animals:
+    - {fileID: 11400000, guid: b69a9bc45f0e7444fb4616a8aad4f4ad, type: 2}
+    spawnRangeMinMax: {x: 12, y: 12}
+    initialSpawnCount: 2
+    maxAnimalCount: 7
+    spawnRateInsec: 8
+  - animals:
+    - {fileID: 11400000, guid: aa0270cfdcec3894cb0ec2486765c4b5, type: 2}
+    spawnRangeMinMax: {x: 14, y: 14}
+    initialSpawnCount: 2
+    maxAnimalCount: 7
+    spawnRateInsec: 10
+  - animals:
+    - {fileID: 11400000, guid: 024c0f20a2ab82741ac28f267902314c, type: 2}
+    spawnRangeMinMax: {x: 16, y: 16}
+    initialSpawnCount: 1
+    maxAnimalCount: 5
+    spawnRateInsec: 10
+  - animals:
+    - {fileID: 11400000, guid: 5f33fe5a6c4015644aa151fad7bee1ba, type: 2}
+    spawnRangeMinMax: {x: 18, y: 18}
+    initialSpawnCount: 1
+    maxAnimalCount: 8
+    spawnRateInsec: 15

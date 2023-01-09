@@ -17,6 +17,11 @@ public class Animal : ICollidable
         currentHealth--;
         isPanicking = true;
         panickEndTime = Time.time + specs.panickDuration;
+        
+        var splatterSound = Camera.main.GetComponent<Sounds>();
+        splatterSound.splatter.pitch = Random.Range(1.1f, 1.4f);
+        splatterSound.splatter.Play();
+
         if (currentHealth > 0)
             return;
 

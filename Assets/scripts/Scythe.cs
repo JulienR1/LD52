@@ -81,6 +81,7 @@ public class Scythe : ICollidable
         isAttacking = true;
         animator.SetBool("isAttacking", true);
         animator.speed = swingAnimation.length / attackDuration;
+        Camera.main.GetComponent<Sounds>().scythe.Play();
         yield return new WaitForSeconds(attackDuration);
         animator.SetBool("isAttacking", false);
         isAttacking = false;

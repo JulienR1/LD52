@@ -103,7 +103,7 @@ RectTransform:
   m_GameObject: {fileID: 7760389201220386571}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7760389202374800762}
@@ -111,8 +111,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 50, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 64.59, y: 0}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &7760389201220386568
 CanvasRenderer:
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 58446c5e86300994fb27f4a076656719, type: 3}
+  m_Sprite: {fileID: -589747522, guid: cd57c3c5b3c1e124d9c07a8dcd7d5244, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -162,6 +162,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7760389201258173789}
   - component: {fileID: 7760389201258173788}
+  - component: {fileID: 1085184195}
   m_Layer: 5
   m_Name: gage
   m_TagString: Untagged
@@ -207,6 +208,14 @@ MonoBehaviour:
   foreground: {fileID: 7760389202374800762}
   soulCapacity: 30
   soulConsuptionRate: 0.01
+--- !u!222 &1085184195
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7760389201258173790}
+  m_CullTransparentMesh: 1
 --- !u!1 &7760389202374800763
 GameObject:
   m_ObjectHideFlags: 0

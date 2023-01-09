@@ -6,6 +6,7 @@ using UnityEngine;
 public class Spirit : MonoBehaviour
 {
     [SerializeField] private AnimationClip spawnAnimation;
+    [SerializeField] private AnimationClip idleAnimation;
     [SerializeField] private AnimationClip dieAnimation;
     [SerializeField] private float minimumDistance;
     [SerializeField] private float acceleration;
@@ -55,6 +56,7 @@ public class Spirit : MonoBehaviour
 
     private void Follow(Transform target)
     {
+        
         var offsetToTarget = target.position - transform.position;
         var regularDirection = (1 - drunkFactor) * offsetToTarget;
         var drunkDirection = drunkFactor * GetDrunkDirection();
