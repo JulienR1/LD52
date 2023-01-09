@@ -1,48 +1,59 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    public int spawnerId;
-    
-    public GameObject[] animalList;
+    [SerializeField] private GameObject[] animalList;
 
-    public int animalCountStart;
-    public int spawnerWidth = 4;
-    public int spawnerHeight = 4;
-    public int maxAnimalsInSpawner = 10;
-    
-    private float lastSpawn;
-    public float spawnRateInSec = 5f;
+    [SerializeField] private Vector2 spawnRangeMinMax;
+    [SerializeField] private int animalCountStart;
+    [SerializeField] private int maxAnimalsInSpawner = 10;
+    [SerializeField] private float spawnRateInSec = 5f;
+
+    private int spawnerId;
+    private float lastSpawnTime;
 
     void Start()
     {
-       
-        for (int i = 0; i < animalCountStart; i++){
+        for (int i = 0; i < animalCountStart; i++)
             SpawnAnimal();
-        }
-        lastSpawn = Time.time;
+
+        lastSpawnTime = Time.time;
     }
 
     void Update()
     {
-        if(Time.time - lastSpawn > spawnRateInSec){
+        if (Time.time - lastSpawnTime > spawnRateInSec)
+        {
             SpawnAnimal();
-            lastSpawn = Time.time;
+            lastSpawnTime = Time.time;
         }
-    }    
-    
-    private void SpawnAnimal(){
-        if(transform.childCount >= maxAnimalsInSpawner) return;
-        
-        GameObject animal = Instantiate(animalList[Random.Range(0, animalList.Length)], SpawnAt(), Quaternion.identity);
+    }
+
+    public void SetSpawnerId(int id)
+    {
+        spawnerId = id;
+    }
+
+    private void SpawnAnimal()
+    {
+        if (transform.childCount >= maxAnimalsInSpawner)
+            return;
+
+        GameObject animal = Instantiate(animalList[Random.Range(0, animalList.Length)], GetRandomSpawnPosition(), Quaternion.identity);
         animal.transform.parent = GameObject.Find("spawner_" + spawnerId).transform;
-    } 
+    }
 
-    private Vector3 SpawnAt(){
-        GameObject spawnTile = GameObject.Find("(" + Random.Range(-spawnerWidth, spawnerHeight) + ", " + Random.Range(-spawnerWidth, spawnerHeight) + ")");
+    private Vector3 GetRandomSpawnPosition()
+    {
+        float angle = 2 * Mathf.PI * Random.value;
+        float radius = Random.value * (spawnRangeMinMax.y - spawnRangeMinMax.x) + spawnRangeMinMax.x;
+        return transform.position + new Vector3(radius * Mathf.Cos(angle), radius * Mathf.Sin(angle), 0);
+    }
 
-        return spawnTile.transform.position;
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, spawnRangeMinMax.x);
+        Gizmos.DrawWireSphere(transform.position, spawnRangeMinMax.y);
     }
 }

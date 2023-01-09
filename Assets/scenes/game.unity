@@ -545,6 +545,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2739462011495868912, guid: 4d0af22d99ab69c4bb26bc929f811f27, type: 3}
+      propertyPath: levelWidth
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2739462011495868912, guid: 4d0af22d99ab69c4bb26bc929f811f27, type: 3}
+      propertyPath: levelHeight
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 2739462011495868913, guid: 4d0af22d99ab69c4bb26bc929f811f27, type: 3}
       propertyPath: m_Name
       value: map

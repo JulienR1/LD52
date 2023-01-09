@@ -18,7 +18,7 @@ public class LevelManager : MonoBehaviour
     void Start()
     {
         levelZeroZero = GameObject.Find("(0, 0)");
-        
+
         InstatiatePlayer(levelZeroZero);
         InstantiateSpawners(levelZeroZero);
     }
@@ -29,15 +29,16 @@ public class LevelManager : MonoBehaviour
         Instantiate(player, levelZeroZero.transform.position, Quaternion.identity);
     }
 
-    private void InstantiateSpawners(GameObject levelZeroZero){
-        if(spawners.Length > 0)
+    private void InstantiateSpawners(GameObject levelZeroZero)
+    {
+        if (spawners.Length > 0)
         {
             foreach (GameObject spawner in spawners)
             {
                 spawnerId++;
                 GameObject newSpawner = Instantiate(spawner, levelZeroZero.transform.position, Quaternion.identity);
                 newSpawner.name = "spawner_" + spawnerId;
-                newSpawner.GetComponent<Spawner>().spawnerId = spawnerId;
+                newSpawner.GetComponent<Spawner>().SetSpawnerId(spawnerId);
             }
         }
     }

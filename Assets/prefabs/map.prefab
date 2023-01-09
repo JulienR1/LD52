@@ -127,7 +127,7 @@ Transform:
   - {fileID: 2739462011474467077}
   - {fileID: 2739462010837463635}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2739462011495868912
 MonoBehaviour:
@@ -141,8 +141,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d95d591152e13743b443b332a713e36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelWidth: 10
-  levelHeight: 10
+  levelWidth: 11
+  levelHeight: 11
   mapScale: 50
   tilePrefab: {fileID: 2739462011828755205}
   groundSprites:

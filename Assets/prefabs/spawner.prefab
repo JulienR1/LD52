@@ -44,11 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 651059e1920f1f44e8dc6e4efb927e24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnerId: 0
   animalList:
   - {fileID: 7675844987213058338, guid: 1863902647a21f84baf1c645056a6ee7, type: 3}
+  spawnRangeMinMax: {x: 2, y: 4}
   animalCountStart: 3
-  spawnerWidth: 2
-  spawnerHeight: 2
   maxAnimalsInSpawner: 10
   spawnRateInSec: 5
