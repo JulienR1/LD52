@@ -48,7 +48,7 @@ public class LevelManager : MonoBehaviour
         foreach (var spawnerData in level.spawners)
         {
             spawnerId++;
-            var obj = new GameObject();
+            var obj = new GameObject("Spawner");
             obj.transform.SetParent(map.transform);
             var spawner = obj.AddComponent<Spawner>();
             spawner.animalList = spawnerData.animals.ToArray();
@@ -60,18 +60,4 @@ public class LevelManager : MonoBehaviour
             spawner.Init();
         }
     }
-
-    // private void InstantiateSpawners(GameObject levelZeroZero)
-    // {
-    //     if (spawners.Length > 0)
-    //     {
-    //         foreach (GameObject spawner in spawners)
-    //         {
-    //             spawnerId++;
-    //             GameObject newSpawner = Instantiate(spawner, levelZeroZero.transform.position, Quaternion.identity);
-    //             newSpawner.name = "spawner_" + spawnerId;
-    //             newSpawner.GetComponent<Spawner>().SetSpawnerId(spawnerId);
-    //         }
-    //     }
-    // }
 }

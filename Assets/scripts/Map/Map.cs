@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Map : MonoBehaviour
@@ -67,27 +65,13 @@ public class Map : MonoBehaviour
                 edgeTile.name = "Edge " + x + "_" + y + "";
                 edgeTile.GetComponent<SpriteRenderer>().sortingOrder = 1;
 
-                edgeTile.AddComponent<BoxCollider2D>();
-                edgeTile.GetComponent<BoxCollider2D>().offset = new Vector2(0, 0);
-                edgeTile.GetComponent<BoxCollider2D>().isTrigger = true;
-
                 // Génère les bordures du niveau et détruit les tuiles dupliqués à l'intérieur du niveau 
                 if (x == startX || x == startX + levelWidth + 1)
-                {
                     edgeTile.GetComponent<SpriteRenderer>().sprite = edgeVerticalSprite;
-                    edgeTile.GetComponent<BoxCollider2D>().size = new Vector2(0.165f * 0.5f, 0.165f);
-
-                }
                 else if (y == startY || y == startY + levelHeight + 1)
-                {
                     edgeTile.GetComponent<SpriteRenderer>().sprite = edgeHorizontalSprite;
-                    edgeTile.GetComponent<BoxCollider2D>().size = new Vector2(0.165f, 0.165f * 0.5f);
-
-                }
                 else
-                {
                     Destroy(edgeTile);
-                }
 
                 // Change le sprite des coins pour le sprite de coin respectif
                 if (x == startX && y == startY)
@@ -119,5 +103,38 @@ public class Map : MonoBehaviour
                 tile.name = "(" + (x - levelWidth / 2) + ", " + (y - levelHeight / 2) + ")";
             }
         }
+
+        // haha dont speak about that
+        var leftColliderObj = new GameObject("left collider");
+        var leftCollider = leftColliderObj.AddComponent<BoxCollider2D>();
+        leftCollider.isTrigger = true;
+
+        leftCollider.transform.SetParent(GameObject.Find("level").transform);
+        leftCollider.transform.position = (0.5f * levelWidth + 1) * Vector3.left;
+        leftCollider.transform.localScale = new Vector3(0.08f, 1.5f * levelHeight, 1);
+
+        var rightColliderObj = new GameObject("right collider");
+        var rightCollider = rightColliderObj.AddComponent<BoxCollider2D>();
+        rightCollider.isTrigger = true;
+
+        rightCollider.transform.SetParent(GameObject.Find("level").transform);
+        rightCollider.transform.position = 0.5f * levelWidth * Vector3.right;
+        rightCollider.transform.localScale = new Vector3(0.08f, 1.5f * levelHeight, 1);
+
+        var topColliderObj = new GameObject("top collider");
+        var topCollider = topColliderObj.AddComponent<BoxCollider2D>();
+        topCollider.isTrigger = true;
+
+        topCollider.transform.SetParent(GameObject.Find("level").transform);
+        topCollider.transform.position = 0.5f * levelHeight * Vector3.up;
+        topCollider.transform.localScale = new Vector3(1.5f * levelWidth, 0.08f, 1);
+
+        var downColliderObj = new GameObject("down collider");
+        var downCollider = downColliderObj.AddComponent<BoxCollider2D>();
+        downCollider.isTrigger = true;
+
+        downCollider.transform.SetParent(GameObject.Find("level").transform);
+        downCollider.transform.position = (0.5f * levelHeight + 1) * Vector3.down;
+        downCollider.transform.localScale = new Vector3(1.5f * levelWidth, 0.08f, 1);
     }
 }
