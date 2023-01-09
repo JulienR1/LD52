@@ -59,6 +59,16 @@ public class InputManager : MonoBehaviour
         }
     }
 
+    public static KeyCode[] GetKeysForAction(KeyAction action)
+    {
+        return InputManager.instance.computedKeyMaps[action];
+    }
+
+    public static Dictionary<KeyCode, Vector2> GetKeysForAxis(Axis axis)
+    {
+        return InputManager.instance.computedAxisMaps[axis];
+    }
+
     public static bool GetAction(KeyAction action)
     {
         var keys = InputManager.instance.computedKeyMaps[action];
