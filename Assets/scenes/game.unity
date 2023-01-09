@@ -571,6 +571,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1695518045}
     m_Modifications:
+    - target: {fileID: 7760389201220386569, guid: e08ec10813286a244b4324ef7b3570af, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c9202862dfc1ded4cb593ef505a9c47a, type: 3}
+    - target: {fileID: 7760389201220386570, guid: e08ec10813286a244b4324ef7b3570af, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 7760389201220386570, guid: e08ec10813286a244b4324ef7b3570af, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 7760389201220386570, guid: e08ec10813286a244b4324ef7b3570af, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 71.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7760389201220386570, guid: e08ec10813286a244b4324ef7b3570af, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 24
+      objectReference: {fileID: 0}
     - target: {fileID: 7760389201258173789, guid: e08ec10813286a244b4324ef7b3570af, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
