@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_Text scoreText;
     [SerializeField] private TMP_Text soulCounterText;
 
+    [SerializeField] private GameObject cardManager;
+
     [Header("Settings")]
     [SerializeField] private float scorePerSecond = 1;
     [SerializeField] private int soulBonusScore = 100;
@@ -15,6 +17,14 @@ public class GameManager : MonoBehaviour
 
     private float score;
     private int soulCount;
+
+    public static int GetSoulCount(){
+        return soulCount;
+    }
+
+    public static void SetSoulCount(int newSoulCount){
+        soulCount = newSoulCount;
+    }
 
     private void Awake()
     {
@@ -37,6 +47,10 @@ public class GameManager : MonoBehaviour
         GameManager.instance.soulCount += soulCount;
         GameManager.instance.gage.AddSouls(soulCount);
         GameManager.instance.score += soulCount * GameManager.instance.soulBonusScore;
+    }
+
+    public static void ShoppingTime(){
+        cardManager.showCards();
     }
 
     public static void GameOver()

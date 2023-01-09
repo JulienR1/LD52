@@ -26,12 +26,12 @@ public class Puit : MonoBehaviour
         if (triggerActive && InputManager.GetActionDown(KeyAction.Interact))
         {
             Balayeuse();
+            //GameManager.ShoppingTime();
         }
     }
 
-    private void Balayeuse()
+    public void Balayeuse()
     {
-        //TODO generate event so the game is freeze or whatever...
         foreach (var spirit in FindObjectsOfType<Spirit>())
         {
             spirit.Sacrifice();
