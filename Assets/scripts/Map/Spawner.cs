@@ -2,17 +2,17 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private GameObject[] animalList;
+    public GameObject[] animalList;
 
-    [SerializeField] private Vector2 spawnRangeMinMax;
-    [SerializeField] private int animalCountStart;
-    [SerializeField] private int maxAnimalsInSpawner = 10;
-    [SerializeField] private float spawnRateInSec = 5f;
+    public Vector2 spawnRangeMinMax;
+    public int animalCountStart;
+    public int maxAnimalsInSpawner = 10;
+    public float spawnRateInSec = 5f;
 
     private int spawnerId;
     private float lastSpawnTime;
 
-    void Start()
+    public void Init()
     {
         for (int i = 0; i < animalCountStart; i++)
             SpawnAnimal();
@@ -40,7 +40,7 @@ public class Spawner : MonoBehaviour
             return;
 
         GameObject animal = Instantiate(animalList[Random.Range(0, animalList.Length)], GetRandomSpawnPosition(), Quaternion.identity);
-        animal.transform.parent = GameObject.Find("spawner_" + spawnerId).transform;
+        animal.transform.SetParent(this.transform);
     }
 
     private Vector3 GetRandomSpawnPosition()

@@ -7,7 +7,7 @@ public class Map : MonoBehaviour
     public int levelWidth;
     public int levelHeight;
 
-    public int mapScale;
+    private int mapScale;
     private float tileSize = 1.0f;
 
     public GameObject tilePrefab;
@@ -19,13 +19,10 @@ public class Map : MonoBehaviour
 
     public GameObject[,] tiles;
 
-    private void Start()
+    public void Init()
     {
-        mapScale = levelWidth > levelHeight ? levelWidth : levelHeight;
-        mapScale = mapScale + 10;
-        
+        mapScale = (levelWidth > levelHeight ? levelWidth : levelHeight) + 10;
         CreateMap();
-        Destroy(tilePrefab);
     }
 
     public void CreateMap()

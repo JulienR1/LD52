@@ -118,7 +118,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2739462011495868913}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.65389156, y: 0.8698908, z: 0.024539948}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -143,7 +143,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelWidth: 11
   levelHeight: 11
-  mapScale: 50
   tilePrefab: {fileID: 2739462011828755205}
   groundSprites:
   - {fileID: 21300000, guid: a3f6becaee10b4c41a51b0f842ef6533, type: 3}
