@@ -1,17 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Puit : MonoBehaviour
 {
-    private int souls = 0;
-
-    public int getSouls()
-    {
-        return souls;
-    }
-
-    [SerializeField] private bool triggerActive = false;
+    private bool triggerActive = false;
+    private int pendingSouls = 0;
 
     public void OnTriggerEnter2D(Collider2D other)
     {
@@ -37,19 +29,36 @@ public class Puit : MonoBehaviour
         }
     }
 
-    public void Balayeuse()
+    private void Balayeuse()
     {
         //TODO generate event so the game is freeze or whatever...
-        foreach (GameObject spiritObj in GameObject.FindGameObjectsWithTag("Soul"))
+        foreach (var spirit in FindObjectsOfType<Spirit>())
         {
-            souls++;
-            print(souls);
-            spiritObj.transform.position = Vector2.MoveTowards(spiritObj.transform.position, this.transform.position, 1);
-            if (Vector2.Distance(spiritObj.transform.position, this.transform.position) < 0.1f)
-            {
-                GameManager.AddSouls(1);
-                Destroy(spiritObj);
-            }
+            spirit.Sacrifice();
+        }
+    }
+
+    public void Open()
+    {
+        if (pendingSouls == 0)
+        {
+            //TODO: open well animation or something
+        }
+
+        pendingSouls++;
+    }
+
+    public void Close()
+    {
+        if (pendingSouls == 0)
+            return;
+
+        pendingSouls--;
+
+        if (pendingSouls == 0)
+        {
+
+            //TODO: close well animation or something
         }
     }
 

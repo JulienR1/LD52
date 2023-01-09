@@ -6,14 +6,19 @@ using UnityEngine;
 public class Spirit : MonoBehaviour
 {
     [SerializeField] private AnimationClip spawnAnimation;
+    [SerializeField] private AnimationClip dieAnimation;
     [SerializeField] private float minimumDistance;
     [SerializeField] private float acceleration;
     [SerializeField, Range(0, 1)] private float drunkFactor;
     [SerializeField] private float dampingFactor;
 
+    private Puit well;
     private Reaper reaper;
     private Animator animator;
+
+    private bool canMove = true;
     private bool isSpawned = false;
+    private bool isSacrificed = false;
 
     private Vector3 velocity = Vector3.zero;
     private float seed;
@@ -22,6 +27,7 @@ public class Spirit : MonoBehaviour
     {
         seed = Random.Range(0, 10000000);
 
+        well = FindObjectOfType<Puit>();
         reaper = FindObjectOfType<Reaper>();
         animator = GetComponent<Animator>();
         StartCoroutine(Spawn());
@@ -29,8 +35,10 @@ public class Spirit : MonoBehaviour
 
     private void Update()
     {
-        if (isSpawned)
-            Follow();
+        if (isSacrificed)
+            Follow(well.transform);
+        else if (isSpawned)
+            Follow(reaper.transform);
     }
 
     private IEnumerator Spawn()
@@ -39,9 +47,15 @@ public class Spirit : MonoBehaviour
         isSpawned = true;
     }
 
-    private void Follow()
+    public void Sacrifice()
     {
-        var offsetToTarget = reaper.transform.position - transform.position;
+        isSacrificed = true;
+        minimumDistance = 0.25f;
+    }
+
+    private void Follow(Transform target)
+    {
+        var offsetToTarget = target.position - transform.position;
         var regularDirection = (1 - drunkFactor) * offsetToTarget;
         var drunkDirection = drunkFactor * GetDrunkDirection();
 
@@ -50,11 +64,35 @@ public class Spirit : MonoBehaviour
 
         if (offsetToTarget.sqrMagnitude > minimumDistance * minimumDistance)
             velocity += regularDirection * acceleration * Time.deltaTime;
+        else
+            OnReachTarget();
+
         if (velocity.sqrMagnitude > minimumDistance)
             velocity += dampingFactor * (dot - 1) * oldVelocity * Time.deltaTime;
         velocity += drunkDirection * acceleration * Time.deltaTime;
 
-        transform.position += velocity * Time.deltaTime;
+        if (canMove)
+            transform.position += velocity * Time.deltaTime;
+    }
+
+    private void OnReachTarget()
+    {
+        if (isSacrificed)
+        {
+            canMove = false;
+            velocity = Vector3.zero;
+            StartCoroutine(DisappearCoroutine());
+        }
+    }
+
+
+    private IEnumerator DisappearCoroutine()
+    {
+        well.Open();
+        yield return new WaitForSeconds(dieAnimation?.length ?? 0);
+        well.Close();
+        GameManager.AddSouls(1);
+        Destroy(gameObject);
     }
 
     private Vector3 GetDrunkDirection()

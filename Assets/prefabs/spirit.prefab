@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1009676341924695694}
   - component: {fileID: 1009676341924695695}
   - component: {fileID: 1009676341924695692}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: spirit
   m_TagString: Soul
   m_Icon: {fileID: 0}
@@ -32,7 +32,7 @@ Transform:
   m_Children:
   - {fileID: 1009676341946992976}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1009676341924695695
 MonoBehaviour:
@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnAnimation: {fileID: 7400000, guid: a98fb0f616dba5643add5b6be2c5fc75, type: 2}
+  dieAnimation: {fileID: 7400000, guid: 03e6d9ff3591fc143b04b6865a475cb9, type: 2}
   minimumDistance: 1.8
   acceleration: 1.25
   drunkFactor: 0.331
@@ -81,7 +82,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1009676341946992976}
   - component: {fileID: 1009676341946992979}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -143,7 +144,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: bb222eca242ba9f41b50d5a772d94ef4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

@@ -30,6 +30,6 @@ public class GameManager : MonoBehaviour
 
     public static void GameOver()
     {
-        print("GAMe over noob");
+        // print("GAMe over noob");
     }
 }

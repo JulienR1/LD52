@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public abstract class Animal : ICollidable
 {
@@ -22,9 +18,6 @@ public abstract class Animal : ICollidable
         createCorpse();
 
         GameObject spirit = Instantiate(spiritPrefab, transform.position, Quaternion.identity);
-        spirit.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = 1;
-        
-        
         Destroy(this.gameObject);
     }
 
@@ -87,9 +80,10 @@ public abstract class Animal : ICollidable
 
     public override void OnCollisionEnd(GameObject other) { }
 
-    private void createCorpse(){
+    private void createCorpse()
+    {
         if (!GameObject.Find("corpses")) new GameObject("corpses");
-        
+
         GameObject corpse = new GameObject();
         SpriteRenderer sr = corpse.AddComponent<SpriteRenderer>();
         sr.sprite = Resources.Load<Sprite>("sprites/animals/" + deadSprite);

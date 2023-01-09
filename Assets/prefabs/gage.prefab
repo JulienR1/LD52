@@ -206,7 +206,7 @@ MonoBehaviour:
   background: {fileID: 7760389200399228011}
   foreground: {fileID: 7760389202374800762}
   soulCapacity: 30
-  soulConsuptionRate: 0.05
+  soulConsuptionRate: 0.01
 --- !u!1 &7760389202374800763
 GameObject:
   m_ObjectHideFlags: 0
