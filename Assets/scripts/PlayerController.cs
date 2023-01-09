@@ -23,17 +23,19 @@ public class PlayerController : ICollidable
         velocity = Vector3.Lerp(velocity, targetVelocity, acceleration * Time.deltaTime);
 
         var graphics = this.transform.Find("graphics");
-        var weapon = this.transform.Find("weapon");
-        
-        if (Input.mousePosition.x < Screen.width / 2) graphics.rotation = Quaternion.Lerp(graphics.rotation, Quaternion.Euler(0, 180, 0), 0.2f);
-        else graphics.rotation = Quaternion.Lerp(graphics.rotation, Quaternion.Euler(0, 0, 0), 0.2f);
+
+        if (Input.mousePosition.x < Screen.width / 2)
+            graphics.rotation = Quaternion.Lerp(graphics.rotation, Quaternion.Euler(0, 180, 0), 0.2f);
+        else
+            graphics.rotation = Quaternion.Lerp(graphics.rotation, Quaternion.Euler(0, 0, 0), 0.2f);
 
         this.transform.Translate(velocity.x, velocity.y, 0);
     }
 
     public override void OnCollision(Vector2 collisionDifference, GameObject other)
     {
-        if(other.tag != "Puit"){
+        if (other.tag != "Puit")
+        {
             this.transform.Translate(-collisionDifference);
         }
     }

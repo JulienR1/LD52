@@ -5,8 +5,9 @@ using UnityEngine;
 public class Scythe : ICollidable
 {
     [SerializeField] private PolygonCollider2D attackArea;
-    [SerializeField] private Transform weaponHolder;
 
+    [SerializeField] private Transform weaponHolder;
+    [SerializeField] private Transform weaponGraphics;
     [SerializeField] private Animator animator;
     [SerializeField] private AnimationClip swingAnimation;
 
@@ -39,20 +40,19 @@ public class Scythe : ICollidable
 
     private void LookAtMouse()
     {
-
+        var spinAroundPosition = new Vector3(spinAround.position.x, spinAround.position.y, 0);
         var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0;
 
-        if ((mousePosition - spinAround.position).sqrMagnitude < mouseInactivityRadius * mouseInactivityRadius)
+
+        if ((mousePosition - spinAroundPosition).sqrMagnitude < mouseInactivityRadius * mouseInactivityRadius)
             return;
 
-        var directionToMouse = (mousePosition - spinAround.position).normalized;
-        var angle = Vector3.SignedAngle(forwardDirection, directionToMouse, Vector3.forward);
+        var directionToMouse = (mousePosition - spinAroundPosition).normalized;
+        var zAngle = Vector3.SignedAngle(Vector3.right, directionToMouse, Vector3.forward);
 
-        // if mouse is on the left side of the player, rotate the scythe in the opposite direction
-        var xAnle = 0;
-        if (mousePosition.x < spinAround.position.x) {xAnle = 180; angle = -angle;}
-        weaponHolder.rotation = Quaternion.Euler(xAnle, 0, angle);
+        weaponHolder.rotation = Quaternion.Euler(0, 0, zAngle);
+        weaponGraphics.rotation = Quaternion.Euler(weaponGraphics.rotation.x, Input.mousePosition.x < Screen.width / 2f ? 180 : weaponGraphics.rotation.y, weaponGraphics.rotation.z);
     }
 
     private (Vector3, Vector3) GetAttackArea()
